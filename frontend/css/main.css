@@ -183,7 +183,7 @@
 /* Hero */
 .hero-img {
     width: 100%;
-    height: clamp(200px, 34vw, 430px);
+    height: 90vh;
     object-fit: cover
 }
 
@@ -508,18 +508,33 @@
 }
 
 .map-band {
-    background: repeating-linear-gradient(135deg, var(--soft) 0 40px, var(--white) 40px 80px);
-    padding: 60px 20px;
-    text-align: center;
-    font-size: .85rem;
-    font-weight: 600;
-    color: var(--black)
+    position: relative;
+    background: var(--soft);
+    line-height: 0
 }
 
-.map-band .pin {
+.map-band iframe {
     display: block;
-    color: var(--red);
-    font-size: 1.6rem
+    width: 100%;
+    height: clamp(320px, 45vw, 480px)
+}
+
+.map-band__text {
+    position: absolute;
+    z-index: 2;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(860px, calc(100% - 32px));
+    padding: 12px 18px;
+    background: var(--orange);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    font-size: .85rem;
+    line-height: 1.4;
+    font-weight: 600;
+    color: var(--blue)
 }
 
 /* Inner pages */
@@ -1050,3 +1065,6 @@ th {
 .brand-card[data-reveal].is-visible {
     transform: perspective(800px) rotateX(var(--rx, 0)) rotateY(var(--ry, 0))
 }
+.floating-chat{transition:transform .25s,background .25s,color .25s}
+.floating-chat svg{display:block}
+.floating-chat:hover{transform:scale(1.1);background:var(--blue);color:var(--white)}

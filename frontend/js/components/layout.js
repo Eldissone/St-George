@@ -34,6 +34,8 @@ export function mountLayout() {
       <span><a href="/admin/login">Área reservada</a></span>
     </div>
   </footer>`;
+  const chat = document.querySelector('.floating-chat');
+  if (chat) chat.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.3A8.4 8.4 0 1 1 21 11.5z"/><path d="M8.5 10h7M8.5 13.5h4.5"/></svg>';
   const toggle = document.querySelector('.nav-toggle');
   toggle?.addEventListener('click', () => { const nav = document.querySelector('.nav'); const open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', String(open)); });
   const top = document.querySelector('.back-top');
