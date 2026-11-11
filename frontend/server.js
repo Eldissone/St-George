@@ -7,6 +7,7 @@ const app = express();
 const port = Number(process.env.PORT || 3000);
 const backendUrl = new URL(process.env.BACKEND_URL || 'http://localhost:4000');
 const frontend = __dirname;
+const isProduction = process.env.NODE_ENV === 'production';
 
 const legacyHtmlRoutes = {
   '/index.html': '/', '/pages/about-us.html': '/about-us', '/pages/products.html': '/products', '/pages/product-detail.html': '/products',
@@ -32,7 +33,16 @@ app.get(/\.html$/, (req, res) => {
   return destination ? res.redirect(301, destination) : res.status(404).end();
 });
 app.use((req, res, next) => req.path.length > 1 && req.path.endsWith('/') ? res.redirect(301, req.originalUrl.replace(/\/(\?.*)?$/, '$1')) : next());
-app.use(express.static(frontend, { index: false, redirect: false, maxAge: '1h' }));
+// Durante o desenvolvimento, CSS e JavaScript devem ser sempre recarregados.
+// Em produção, o cache continua ativo para melhorar o desempenho.
+app.use(express.static(frontend, {
+  index: false,
+  redirect: false,
+  maxAge: isProduction ? '1h' : 0,
+  setHeaders(res) {
+    if (!isProduction) res.setHeader('Cache-Control', 'no-store, max-age=0');
+  }
+}));
 
 const pages = {
   '/': 'index.html', '/about-us': 'pages/about-us.html', '/products': 'pages/products.html', '/market': 'pages/market.html',
