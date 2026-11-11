@@ -51,14 +51,12 @@
 
 .nav a {
     padding: 26px 0;
-    border-bottom: 3px solid transparent;
     transition: .2s
 }
 
 .nav a:hover,
 .nav a.active {
     color: var(--blue);
-    border-color: var(--orange)
 }
 
 .nav-toggle {
@@ -1065,6 +1063,29 @@ th {
 .brand-card[data-reveal].is-visible {
     transform: perspective(800px) rotateX(var(--rx, 0)) rotateY(var(--ry, 0))
 }
-.floating-chat{transition:transform .25s,background .25s,color .25s}
-.floating-chat svg{display:block}
-.floating-chat:hover{transform:scale(1.1);background:var(--blue);color:var(--white)}
+
+.floating-chat {
+    transition: transform .25s, background .25s, color .25s
+}
+
+.floating-chat svg {
+    display: block
+}
+
+.floating-chat:hover {
+    transform: scale(1.1);
+    background: var(--blue);
+    color: var(--white)
+}
+
+/* O header vive dentro de [data-header]; o sticky tem de estar no wrapper para acompanhar o scroll da página */
+[data-header] {
+    position: sticky;
+    top: 0;
+    z-index: 50
+}
+
+.site-header {
+    position: relative;
+    top: auto
+}
