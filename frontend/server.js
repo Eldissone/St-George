@@ -12,7 +12,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const legacyHtmlRoutes = {
   '/index.html': '/', '/pages/about-us.html': '/about-us', '/pages/products.html': '/products', '/pages/product-detail.html': '/products',
   '/pages/market.html': '/market', '/pages/corporate-responsibility.html': '/corporate-responsibility', '/pages/contact-us.html': '/contact-us',
-  '/pages/careers.html': '/careers', '/pages/blog/index.html': '/blog', '/pages/blog/article.html': '/blog', '/admin/login.html': '/admin/login',
+  '/pages/marcas.html': '/marcas', '/pages/blog/index.html': '/blog', '/pages/blog/article.html': '/blog', '/admin/login.html': '/admin/login',
   '/admin/dashboard.html': '/admin', '/admin/products.html': '/admin/products', '/admin/news.html': '/admin/news', '/admin/pages.html': '/admin/pages',
   '/admin/contacts.html': '/admin/contacts', '/admin/careers.html': '/admin/careers', '/admin/media.html': '/admin/media', '/admin/users.html': '/admin/users', '/admin/settings.html': '/admin/settings'
 };
@@ -46,7 +46,7 @@ app.use(express.static(frontend, {
 
 const pages = {
   '/': 'index.html', '/about-us': 'pages/about-us.html', '/products': 'pages/products.html', '/market': 'pages/market.html',
-  '/corporate-responsibility': 'pages/corporate-responsibility.html', '/contact-us': 'pages/contact-us.html', '/careers': 'pages/careers.html',
+  '/corporate-responsibility': 'pages/corporate-responsibility.html', '/contact-us': 'pages/contact-us.html', '/marcas': 'pages/marcas.html',
   '/blog': 'pages/blog/index.html', '/admin': 'admin/dashboard.html', '/admin/login': 'admin/login.html', '/admin/products': 'admin/products.html', '/admin/news': 'admin/news.html',
   '/admin/pages': 'admin/pages.html', '/admin/contacts': 'admin/contacts.html', '/admin/careers': 'admin/careers.html', '/admin/media': 'admin/media.html', '/admin/users': 'admin/users.html', '/admin/settings': 'admin/settings.html'
 };

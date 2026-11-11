@@ -2,51 +2,71 @@
 @import url('./base/variables.css');
 @import url('./base/typography.css');
 
+/* Header */
 .site-header {
-    height: 82px;
+    height: 75px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 max(20px, calc((100% - 1160px)/2));
-    position: relative;
-    z-index: 20;
-    background: #fff;
-    border-bottom: 1px solid #edf0ec
+    gap: 24px;
+    padding: 0 max(20px, calc((100% - 1400px)/2));
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
 }
 
 .brand {
-    font: 700 1.35rem var(--serif);
-    letter-spacing: .03em;
-    color: var(--forest)
+    font: 800 1.3rem var(--serif);
+    color: var(--blue)
 }
 
 .brand span {
-    color: #a7bb22
+    color: var(--red)
+}
+
+.brand--logo {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0
+}
+
+.brand--logo img {
+    display: block;
+    width: 130px;
+    height: auto;
+    max-height: 46px;
+    object-fit: contain
 }
 
 .nav {
     display: flex;
     align-items: center;
     gap: 22px;
-    font-size: .85rem;
-    font-weight: 700
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--black)
 }
 
 .nav a {
-    padding: 28px 0;
-    border-bottom: 3px solid transparent
+    padding: 26px 0;
+    border-bottom: 3px solid transparent;
+    transition: .2s
 }
 
 .nav a:hover,
 .nav a.active {
-    border-color: var(--lime)
+    color: var(--blue);
+    border-color: var(--orange)
 }
 
 .nav-toggle {
     display: none;
     border: 0;
     background: none;
-    font-size: 1.6rem
+    font-size: 1.6rem;
+    color: var(--blue)
 }
 
 .header-actions {
@@ -56,178 +76,477 @@
 }
 
 .lang {
-    font-size: .78rem;
+    font-size: .75rem;
     font-weight: bold;
     border: 0;
-    background: transparent
+    background: transparent;
+    color: var(--blue)
 }
 
+/* Buttons */
 .button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--forest);
-    background: var(--forest);
-    color: #fff;
-    padding: 13px 21px;
-    font-size: .78rem;
-    font-weight: bold;
+    border: 1px solid var(--orange);
+    background: var(--orange);
+    color: var(--blue);
+    padding: 11px 22px;
+    font-size: .72rem;
+    font-weight: 800;
     letter-spacing: .06em;
     text-transform: uppercase;
-    transition: .2s
+    border-radius: 3px;
+    transition: .2s;
+    cursor: pointer
 }
 
 .button:hover {
-    background: var(--lime);
-    border-color: var(--lime);
-    color: var(--forest)
+    background: var(--blue);
+    border-color: var(--blue);
+    color: var(--white)
 }
 
 .button--light {
-    background: transparent;
-    color: var(--forest)
+    background: var(--white);
+    border-color: var(--blue);
+    color: var(--blue)
 }
 
 .button--light:hover {
-    color: var(--forest)
+    background: var(--blue);
+    color: var(--white)
 }
 
-.hero {
-    background: var(--forest-deep);
-    color: #fff;
-    min-height: 560px;
-    display: grid;
-    place-items: center;
-    position: relative;
-    overflow: hidden
+.button--red {
+    background: var(--red);
+    border-color: var(--red);
+    color: var(--white)
 }
 
-.hero:after {
-    content: '';
-    position: absolute;
-    width: 55vw;
-    height: 55vw;
-    border: 1px solid rgba(215, 232, 66, .35);
-    border-radius: 50%;
-    right: -15vw;
-    bottom: -35vw
+.button--red:hover {
+    background: var(--black);
+    border-color: var(--black);
+    color: var(--white)
 }
 
-.hero__inner {
-    width: var(--container);
-    padding: 100px 0;
-    position: relative;
-    z-index: 1
+.button-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center
 }
 
-.hero .lead {
-    color: #d7e1d9;
-    margin: 25px 0 32px
-}
-
-.hero__mark {
-    position: absolute;
-    right: 4%;
-    top: 15%;
-    font: clamp(9rem, 23vw, 20rem) var(--serif);
-    color: rgba(215, 232, 66, .1)
-}
-
-.section {
-    padding: 100px 0
-}
-
-.section--sand {
-    background: var(--sand)
-}
-
+/* Layout */
 .container {
     width: var(--container);
     margin: auto
 }
 
-.split {
+.section {
+    padding: 72px 0
+}
+
+.section--soft {
+    background: var(--soft)
+}
+
+.section-head {
+    text-align: center;
+    margin-bottom: 38px
+}
+
+.section-head h2 {
+    margin-top: 6px
+}
+
+.section-head p {
+    color: var(--muted);
+    margin: 10px auto 0;
+    font-size: .9rem;
+    max-width: 560px
+}
+
+.light-title {
+    font-weight: 300;
+    text-transform: uppercase;
+    display: block
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid var(--line);
+    width: var(--container);
+    margin: 0 auto
+}
+
+/* Hero */
+.hero-img {
+    width: 100%;
+    height: clamp(200px, 34vw, 430px);
+    object-fit: cover
+}
+
+.intro {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 56px;
     align-items: center
 }
 
-.visual {
-    min-height: 380px;
-    border-radius: var(--radius);
-    background: linear-gradient(145deg, #71904a, #1a4a32 60%, #11261d);
-    position: relative;
-    overflow: hidden
+.intro h1 {
+    font-weight: 300;
+    font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+    text-transform: uppercase
 }
 
-.visual:after {
-    content: 'ST. GEORGE';
-    font: 700 clamp(2rem, 5vw, 4.7rem) var(--serif);
-    position: absolute;
-    bottom: 25px;
-    left: 25px;
-    color: rgba(255, 255, 255, .8)
+.intro h1 strong {
+    display: block;
+    font-weight: 800
 }
 
-.stat-grid,
-.card-grid {
+.intro p {
+    color: var(--muted);
+    font-size: .9rem;
+    margin: 14px 0 22px;
+    max-width: 380px
+}
+
+.intro .button-row {
+    justify-content: flex-start
+}
+
+.intro img {
+    width: 100%;
+    max-height: 340px;
+    object-fit: cover;
+    border-radius: var(--radius)
+}
+
+/* Brands */
+.brand-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px
+    gap: 22px;
+    max-width: 900px;
+    margin: auto
 }
 
-.stat {
-    padding: 28px;
-    border-top: 2px solid var(--lime);
-    background: #fff
+.brand-card {
+    background: var(--soft);
+    border-radius: var(--radius);
+    padding: 14px 14px 18px;
+    position: relative;
+    transition: .2s
 }
 
-.stat strong {
-    display: block;
-    font: 2.5rem var(--serif);
-    color: var(--forest)
-}
-
-.card {
-    border: 1px solid var(--line);
-    padding: 28px;
-    background: #fff;
-    transition: transform .2s, box-shadow .2s
-}
-
-.card:hover {
-    transform: translateY(-5px);
+.brand-card:hover {
+    transform: translateY(-4px);
     box-shadow: var(--shadow)
 }
 
-.card p {
-    margin-top: 12px;
+.brand-card .tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--orange);
+    color: var(--blue);
+    font-size: .6rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 3px;
+    text-transform: uppercase
+}
+
+.brand-card img {
+    height: 220px;
+    margin: 0 auto 14px;
+    object-fit: contain
+}
+
+.brand-card h3 {
+    color: var(--red);
+    font-size: .9rem
+}
+
+.brand-card p {
+    font-size: .78rem;
     color: var(--muted)
 }
 
-.card .arrow {
-    display: block;
-    margin-top: 24px;
-    color: var(--forest);
-    font-size: 1.5rem
+/* Portfolio */
+.portfolio {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px
 }
 
+.portfolio-item {
+    font-size: .78rem
+}
+
+.portfolio-item .ph {
+    aspect-ratio: 1/1;
+    background: var(--soft);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 10px;
+    display: grid;
+    place-items: center
+}
+
+.portfolio-item .ph img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+}
+
+.portfolio-item small {
+    color: var(--red);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: .65rem;
+    letter-spacing: .08em
+}
+
+.portfolio-item h3 {
+    font-size: .9rem;
+    margin: 4px 0
+}
+
+.portfolio-item p {
+    color: var(--muted)
+}
+
+/* Banner */
+.banner {
+    border-radius: var(--radius);
+    overflow: hidden
+}
+
+.banner img {
+    width: 100%;
+    height: clamp(220px, 40vw, 460px);
+    object-fit: cover
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px
+}
+
+.dots i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--line)
+}
+
+.dots i:first-child {
+    width: 34px;
+    border-radius: 6px;
+    background: var(--orange)
+}
+
+/* Commerce */
+.commerce {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 48px;
+    align-items: center
+}
+
+.commerce h2 {
+    text-transform: uppercase;
+    font-size: clamp(1.6rem, 3vw, 2.2rem)
+}
+
+.commerce .sub {
+    font-size: .78rem;
+    color: var(--muted);
+    margin: 10px 0 20px
+}
+
+.info-stack {
+    display: grid;
+    gap: 14px
+}
+
+.info-box {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    background: var(--white)
+}
+
+.info-box .eyebrow {
+    color: var(--blue)
+}
+
+.info-box p {
+    font-size: .8rem;
+    color: var(--muted);
+    margin-top: 4px
+}
+
+.chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 8px
+}
+
+.chips span {
+    background: var(--soft);
+    color: var(--blue);
+    font-size: .62rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px
+}
+
+/* Market */
+.market-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px
+}
+
+.market-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    gap: 16px;
+    background: var(--white)
+}
+
+.market-card .ph {
+    width: 72px;
+    height: 72px;
+    flex: none;
+    background: var(--soft);
+    border-radius: 6px;
+    border-left: 4px solid var(--orange)
+}
+
+.market-card h3 {
+    font-size: .95rem
+}
+
+.market-card p {
+    font-size: .78rem;
+    color: var(--muted);
+    margin-top: 4px
+}
+
+/* Content cards */
+.content-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    max-width: 900px;
+    margin: 0 auto 34px
+}
+
+.content-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    background: var(--white);
+    align-items: center
+}
+
+.content-card img {
+    width: 72px;
+    height: 90px;
+    object-fit: contain;
+    flex: none;
+    background: var(--soft);
+    border-radius: 6px
+}
+
+.content-card small {
+    color: var(--red);
+    font-weight: 700;
+    font-size: .65rem;
+    text-transform: uppercase
+}
+
+.content-card h3 {
+    font-size: .9rem;
+    margin: 3px 0
+}
+
+.content-card p {
+    font-size: .75rem;
+    color: var(--muted)
+}
+
+/* CTA + map */
+.cta {
+    text-align: center
+}
+
+.cta h2 {
+    font-weight: 300;
+    text-transform: uppercase
+}
+
+.cta h2 strong {
+    font-weight: 800
+}
+
+.cta p {
+    font-size: .8rem;
+    color: var(--muted);
+    margin: 8px 0 20px
+}
+
+.map-band {
+    background: repeating-linear-gradient(135deg, var(--soft) 0 40px, var(--white) 40px 80px);
+    padding: 60px 20px;
+    text-align: center;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--black)
+}
+
+.map-band .pin {
+    display: block;
+    color: var(--red);
+    font-size: 1.6rem
+}
+
+/* Inner pages */
 .page-hero {
-    background: var(--sand);
-    padding: 84px 0 72px;
-    border-bottom: 1px solid var(--line)
+    background: var(--blue);
+    color: var(--white);
+    padding: 72px 0 60px;
+    border-bottom: 5px solid var(--orange)
+}
+
+.page-hero h1 {
+    color: var(--white)
+}
+
+.page-hero .eyebrow {
+    color: var(--orange)
 }
 
 .page-hero p {
     max-width: 650px;
-    margin-top: 18px;
-    color: var(--muted);
-    font-size: 1.1rem
+    margin-top: 16px;
+    color: #dbe4f5;
+    font-size: 1.05rem
 }
 
 .page-content {
-    padding: 72px 0
+    padding: 64px 0
 }
 
 .content-grid {
@@ -248,13 +567,57 @@
 }
 
 .side-nav a:hover {
-    color: #758900
+    color: var(--red)
 }
 
 .rich-text p {
     margin: 0 0 20px;
     color: var(--muted);
     max-width: 760px
+}
+
+.stat-grid,
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px
+}
+
+.stat {
+    padding: 28px;
+    border-top: 3px solid var(--orange);
+    background: var(--white)
+}
+
+.stat strong {
+    display: block;
+    font: 800 2.5rem var(--serif);
+    color: var(--blue)
+}
+
+.card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+    background: var(--white);
+    transition: transform .2s, box-shadow .2s
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow)
+}
+
+.card p {
+    margin-top: 12px;
+    color: var(--muted)
+}
+
+.card .arrow {
+    display: block;
+    margin-top: 24px;
+    color: var(--red);
+    font-size: 1.5rem
 }
 
 .listing {
@@ -266,15 +629,17 @@
 .product-card {
     min-height: 265px;
     border: 1px solid var(--line);
+    border-radius: var(--radius);
     padding: 26px;
     display: flex;
     flex-direction: column;
     justify-content: end;
-    background: linear-gradient(160deg, #eff3e8, #fff)
+    background: var(--soft);
+    border-bottom: 4px solid var(--orange)
 }
 
 .product-card:nth-child(2n) {
-    background: linear-gradient(160deg, #e3ead1, #fff)
+    border-bottom-color: var(--red)
 }
 
 .product-card p {
@@ -284,7 +649,7 @@
 
 .news-card time {
     font-size: .76rem;
-    color: #758900;
+    color: var(--red);
     font-weight: bold
 }
 
@@ -312,9 +677,10 @@
 .field input,
 .field textarea {
     border: 1px solid var(--line);
+    border-radius: 4px;
     padding: 13px;
-    background: #fff;
-    outline-color: #9bb01f
+    background: var(--white);
+    outline-color: var(--blue)
 }
 
 .field textarea {
@@ -322,38 +688,43 @@
     resize: vertical
 }
 
-.site-footer {
-    background: var(--forest-deep);
-    color: #dce6df;
-    padding: 62px 0 28px
+.status {
+    margin-top: 14px;
+    font-size: .9rem;
+    color: var(--blue)
 }
 
-.footer-grid {
+/* Footer */
+.site-footer {
+    background: var(--white);
+    border-top: 1px solid var(--line);
+    padding: 30px 0 20px
+}
+
+.footer-bar {
     width: var(--container);
     margin: auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 40px
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--blue)
 }
 
-.footer-grid h3 {
-    font: 1rem var(--sans);
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 15px
-}
-
-.footer-grid li {
-    margin: 8px 0;
-    font-size: .88rem
+.footer-bar a:hover {
+    color: var(--red)
 }
 
 .footer-bottom {
     width: var(--container);
-    margin: 45px auto 0;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, .15);
-    font-size: .75rem;
+    margin: 22px auto 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: .72rem;
+    color: var(--muted);
     display: flex;
     justify-content: space-between
 }
@@ -365,12 +736,14 @@
     border: 0;
     z-index: 10;
     border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    background: var(--lime);
-    color: var(--forest);
+    width: 46px;
+    height: 46px;
+    background: var(--orange);
+    color: var(--blue);
     font-weight: bold;
-    box-shadow: var(--shadow)
+    box-shadow: var(--shadow);
+    display: grid;
+    place-items: center
 }
 
 .floating-chat {
@@ -378,7 +751,7 @@
 }
 
 .back-top {
-    bottom: 80px;
+    bottom: 78px;
     opacity: 0;
     pointer-events: none
 }
@@ -388,34 +761,29 @@
     pointer-events: auto
 }
 
-.status {
-    margin-top: 14px;
-    font-size: .9rem;
-    color: #577100
-}
-
+/* Admin / login */
 .admin-shell {
     min-height: 100vh;
-    background: #f4f6f1;
+    background: var(--soft);
     display: grid;
     grid-template-columns: 240px 1fr
 }
 
 .admin-nav {
-    background: var(--forest-deep);
+    background: var(--blue);
     padding: 30px 22px;
-    color: #fff
+    color: var(--white)
 }
 
 .admin-nav a {
     display: block;
     padding: 11px 0;
-    color: #ced9d1;
+    color: #c9d6ee;
     font-size: .88rem
 }
 
 .admin-nav a:hover {
-    color: var(--lime)
+    color: var(--orange)
 }
 
 .admin-main {
@@ -436,7 +804,7 @@
 
 .table-wrap {
     overflow: auto;
-    background: #fff;
+    background: var(--white);
     border: 1px solid var(--line)
 }
 
@@ -464,38 +832,25 @@ th {
     min-height: 100vh;
     display: grid;
     place-items: center;
-    background: var(--forest-deep)
+    background: var(--blue)
 }
 
 .login-card {
     width: min(440px, calc(100% - 40px));
-    background: #fff;
+    background: var(--white);
     padding: 42px;
+    border-radius: var(--radius);
     box-shadow: var(--shadow)
-}
-
-.brand--logo {
-    display: inline-flex;
-    align-items: center;
-    line-height: 0
-}
-
-.brand--logo img {
-    display: block;
-    width: 172px;
-    height: auto;
-    max-height: 58px;
-    object-fit: contain;
 }
 
 @media(max-width:850px) {
     .nav {
         display: none;
         position: absolute;
-        top: 82px;
+        top: 72px;
         left: 0;
         right: 0;
-        background: #fff;
+        background: var(--white);
         padding: 15px 20px;
         flex-direction: column;
         align-items: stretch;
@@ -518,10 +873,13 @@ th {
         display: none
     }
 
-    .split,
-    .content-grid {
+    .intro,
+    .commerce,
+    .content-grid,
+    .market-grid,
+    .content-cards {
         grid-template-columns: 1fr;
-        gap: 36px
+        gap: 28px
     }
 
     .side-nav {
@@ -535,8 +893,16 @@ th {
         grid-template-columns: 1fr
     }
 
+    .brand-grid {
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .portfolio {
+        grid-template-columns: repeat(2, 1fr)
+    }
+
     .section {
-        padding: 65px 0
+        padding: 52px 0
     }
 
     .form-grid {
@@ -555,8 +921,9 @@ th {
         padding: 28px 20px
     }
 
-    .footer-grid {
-        grid-template-columns: 1fr
+    .footer-bar {
+        justify-content: center;
+        text-align: center
     }
 
     .footer-bottom {
@@ -566,9 +933,5 @@ th {
     .footer-bottom span {
         display: block;
         margin-bottom: 8px
-    }
-
-    .brand--logo img {
-        width: 140px
     }
 }
