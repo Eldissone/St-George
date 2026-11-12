@@ -316,16 +316,86 @@
     color: var(--muted)
 }
 
-/* Banner */
-.banner {
+/* Carrossel */
+.carousel {
+    position: relative;
     border-radius: var(--radius);
-    overflow: hidden
+    overflow: hidden;
+    background: var(--soft);
+    touch-action: pan-y
 }
 
-.banner img {
+.carousel__track {
+    position: relative;
+    height: clamp(220px, 40vw, 460px)
+}
+
+.carousel__slide {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .8s ease, visibility .8s
+}
+
+.carousel__slide.is-active {
+    opacity: 1;
+    visibility: visible
+}
+
+.carousel__slide img {
     width: 100%;
-    height: clamp(220px, 40vw, 460px);
-    object-fit: cover
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.06);
+    transition: transform 6s ease-out
+}
+
+.carousel__slide.is-active img {
+    transform: scale(1)
+}
+
+.carousel__slide figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 40px 28px 22px;
+    color: var(--white);
+    font-weight: 700;
+    font-size: clamp(.95rem, 2vw, 1.3rem);
+    background: linear-gradient(transparent, rgba(0, 43, 112, .75))
+}
+
+.carousel__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .9);
+    color: var(--blue);
+    font-size: 1.8rem;
+    line-height: 1;
+    display: grid;
+    place-items: center;
+    box-shadow: var(--shadow);
+    transition: .2s
+}
+
+.carousel__btn:hover {
+    background: var(--orange)
+}
+
+.carousel__btn--prev {
+    left: 14px
+}
+
+.carousel__btn--next {
+    right: 14px
 }
 
 .dots {
@@ -335,16 +405,18 @@
     margin-top: 16px
 }
 
-.dots i {
+.dots button {
     width: 10px;
     height: 10px;
-    border-radius: 50%;
-    background: var(--line)
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: var(--line);
+    transition: width .3s, background .3s
 }
 
-.dots i:first-child {
+.dots button.is-active {
     width: 34px;
-    border-radius: 6px;
     background: var(--orange)
 }
 
@@ -444,8 +516,8 @@
 .content-cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    max-width: 900px;
+    gap: 25px;
+    max-width: 1200px;
     margin: 0 auto 34px
 }
 
@@ -460,9 +532,9 @@
 }
 
 .content-card img {
-    width: 72px;
-    height: 90px;
-    object-fit: contain;
+    width: 75px;
+    height: 100px;
+    object-fit: cover;
     flex: none;
     background: var(--soft);
     border-radius: 6px
@@ -1089,3 +1161,4 @@ th {
     position: relative;
     top: auto
 }
+@media (prefers-reduced-motion:reduce){.carousel__slide,.carousel__slide img{transition:none}}
