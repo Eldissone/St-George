@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon server.js",
+    "build": "nodemon server.js",
     "start": "node server.js"
   },
   "dependencies": {
