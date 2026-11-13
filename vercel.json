@@ -1,8 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
   "outputDirectory": "frontend",
-  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/about-us", "destination": "/pages/about-us.html" },
@@ -24,15 +23,5 @@
     { "source": "/admin/media", "destination": "/admin/media.html" },
     { "source": "/admin/users", "destination": "/admin/users.html" },
     { "source": "/admin/settings", "destination": "/admin/settings.html" }
-  ],
-  "redirects": [
-    { "source": "/index.html", "destination": "/", "permanent": true },
-    { "source": "/pages/about-us.html", "destination": "/about-us", "permanent": true },
-    { "source": "/pages/products.html", "destination": "/products", "permanent": true },
-    { "source": "/pages/market.html", "destination": "/market", "permanent": true },
-    { "source": "/pages/corporate-responsibility.html", "destination": "/corporate-responsibility", "permanent": true },
-    { "source": "/pages/contact-us.html", "destination": "/contact-us", "permanent": true },
-    { "source": "/pages/marcas.html", "destination": "/marcas", "permanent": true }
   ]
 }
-
