@@ -1,4 +1,5 @@
 const http = require('http');
+const https = require('https');
 const path = require('path');
 const express = require('express');
 require('dotenv').config();
@@ -10,31 +11,78 @@ const frontend = __dirname;
 const isProduction = process.env.NODE_ENV === 'production';
 
 const legacyHtmlRoutes = {
-  '/index.html': '/', '/pages/about-us.html': '/about-us', '/pages/products.html': '/products', '/pages/product-detail.html': '/products',
-  '/pages/market.html': '/market', '/pages/corporate-responsibility.html': '/corporate-responsibility', '/pages/contact-us.html': '/contact-us',
-  '/pages/marcas.html': '/marcas', '/pages/blog/index.html': '/blog', '/pages/blog/article.html': '/blog', '/admin/login.html': '/admin/login',
-  '/admin/dashboard.html': '/admin', '/admin/products.html': '/admin/products', '/admin/news.html': '/admin/news', '/admin/pages.html': '/admin/pages',
-  '/admin/contacts.html': '/admin/contacts', '/admin/careers.html': '/admin/careers', '/admin/media.html': '/admin/media', '/admin/users.html': '/admin/users', '/admin/settings.html': '/admin/settings'
+  '/index.html': '/',
+  '/pages/about-us.html': '/about-us',
+  '/pages/products.html': '/products',
+  '/pages/product-detail.html': '/products',
+  '/pages/market.html': '/market',
+  '/pages/corporate-responsibility.html': '/corporate-responsibility',
+  '/pages/contact-us.html': '/contact-us',
+  '/pages/marcas.html': '/marcas',
+  '/pages/blog/index.html': '/blog',
+  '/pages/blog/article.html': '/blog',
+  '/admin/login.html': '/admin/login',
+  '/admin/dashboard.html': '/admin',
+  '/admin/products.html': '/admin/products',
+  '/admin/news.html': '/admin/news',
+  '/admin/pages.html': '/admin/pages',
+  '/admin/contacts.html': '/admin/contacts',
+  '/admin/careers.html': '/admin/careers',
+  '/admin/media.html': '/admin/media',
+  '/admin/users.html': '/admin/users',
+  '/admin/settings.html': '/admin/settings'
 };
 
 function proxyApi(req, res) {
-  const request = http.request({ hostname: backendUrl.hostname, port: backendUrl.port, protocol: backendUrl.protocol, method: req.method, path: req.originalUrl, headers: { ...req.headers, host: backendUrl.host } }, response => {
+  const client = backendUrl.protocol === 'https:' ? https : http;
+  const options = {
+    hostname: backendUrl.hostname,
+    port: backendUrl.port || (backendUrl.protocol === 'https:' ? 443 : 80),
+    method: req.method,
+    path: req.originalUrl,
+    headers: {
+      ...req.headers,
+      host: backendUrl.host
+    }
+  };
+
+  const request = client.request(options, response => {
     res.writeHead(response.statusCode || 502, response.headers);
     response.pipe(res);
   });
-  request.on('error', () => { if (!res.headersSent) res.status(502).json({ error: { code: 'API_UNAVAILABLE', message: 'API temporarily unavailable.' } }); });
+
+  request.on('error', () => {
+    if (!res.headersSent) {
+      res.status(502).json({
+        error: {
+          code: 'API_UNAVAILABLE',
+          message: 'API temporariamente indisponível.'
+        }
+      });
+    }
+  });
+
   req.pipe(request);
 }
 
 app.disable('x-powered-by');
 app.use('/api', proxyApi);
+
+// Redirecionamento de rotas legadas terminadas em .html
 app.get(/\.html$/, (req, res) => {
   const destination = legacyHtmlRoutes[req.path];
   return destination ? res.redirect(301, destination) : res.status(404).end();
 });
-app.use((req, res, next) => req.path.length > 1 && req.path.endsWith('/') ? res.redirect(301, req.originalUrl.replace(/\/(\?.*)?$/, '$1')) : next());
-// Durante o desenvolvimento, CSS e JavaScript devem ser sempre recarregados.
-// Em produção, o cache continua ativo para melhorar o desempenho.
+
+// Remover barra no final da URL
+app.use((req, res, next) => {
+  if (req.path.length > 1 && req.path.endsWith('/')) {
+    return res.redirect(301, req.originalUrl.replace(/\/(\?.*)?$/, '$1'));
+  }
+  next();
+});
+
+// Arquivos estáticos (css, js, assets, etc.)
 app.use(express.static(frontend, {
   index: false,
   redirect: false,
@@ -45,13 +93,63 @@ app.use(express.static(frontend, {
 }));
 
 const pages = {
-  '/': 'index.html', '/about-us': 'pages/about-us.html', '/products': 'pages/products.html', '/market': 'pages/market.html',
-  '/corporate-responsibility': 'pages/corporate-responsibility.html', '/contact-us': 'pages/contact-us.html', '/marcas': 'pages/marcas.html',
-  '/blog': 'pages/blog/index.html', '/admin': 'admin/dashboard.html', '/admin/login': 'admin/login.html', '/admin/products': 'admin/products.html', '/admin/news': 'admin/news.html',
-  '/admin/pages': 'admin/pages.html', '/admin/contacts': 'admin/contacts.html', '/admin/careers': 'admin/careers.html', '/admin/media': 'admin/media.html', '/admin/users': 'admin/users.html', '/admin/settings': 'admin/settings.html'
+  '/': 'index.html',
+  '/about-us': 'pages/about-us.html',
+  '/products': 'pages/products.html',
+  '/market': 'pages/market.html',
+  '/corporate-responsibility': 'pages/corporate-responsibility.html',
+  '/contact-us': 'pages/contact-us.html',
+  '/marcas': 'pages/marcas.html',
+  '/blog': 'pages/blog/index.html',
+  '/admin': 'admin/dashboard.html',
+  '/admin/login': 'admin/login.html',
+  '/admin/products': 'admin/products.html',
+  '/admin/news': 'admin/news.html',
+  '/admin/pages': 'admin/pages.html',
+  '/admin/contacts': 'admin/contacts.html',
+  '/admin/careers': 'admin/careers.html',
+  '/admin/media': 'admin/media.html',
+  '/admin/users': 'admin/users.html',
+  '/admin/settings': 'admin/settings.html'
 };
-Object.entries(pages).forEach(([route, file]) => app.get(route, (req, res) => res.sendFile(path.join(frontend, file))));
-app.get(['/products/:slug', '/blog/:slug'], (req, res) => res.sendFile(path.join(frontend, req.path.startsWith('/products') ? 'pages/product-detail.html' : 'pages/blog/article.html')));
-app.use((req, res) => res.status(404).sendFile(path.join(frontend, 'pages/not-found.html'), error => { if (error) res.type('text').send('Page not found.'); }));
 
-app.listen(port, () => console.log(`St. George frontend running at http://localhost:${port}`));
+Object.entries(pages).forEach(([route, file]) => {
+  app.get(route, (req, res, next) => {
+    res.sendFile(path.join(frontend, file), err => {
+      if (err) next(err);
+    });
+  });
+});
+
+app.get(['/products/:slug', '/blog/:slug'], (req, res, next) => {
+  const file = req.path.startsWith('/products') ? 'pages/product-detail.html' : 'pages/blog/article.html';
+  res.sendFile(path.join(frontend, file), err => {
+    if (err) next(err);
+  });
+});
+
+// Página 404 personalizada
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(frontend, 'pages/not-found.html'), error => {
+    if (error) {
+      res.type('text').send('Página não encontrada.');
+    }
+  });
+});
+
+// Tratamento global de erros
+app.use((err, req, res, next) => {
+  console.error('Erro no servidor:', err);
+  if (!res.headersSent) {
+    res.status(500).sendFile(path.join(frontend, 'pages/not-found.html'), () => {
+      res.type('text').send('Erro interno do servidor.');
+    });
+  }
+});
+
+if (require.main === module) {
+  app.listen(port, () => console.log(`St. George frontend running at http://localhost:${port}`));
+}
+
+module.exports = app;
+
